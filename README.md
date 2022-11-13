@@ -31,7 +31,7 @@ I made a program in Python using Tkinter as user interface that allows the user 
 
 ## Portfolio Link
 
-`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Age%20calculator%20program`
+`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Age%20Calculator%20Program`
 
 ## Video
 
