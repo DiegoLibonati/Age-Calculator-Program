@@ -19,19 +19,9 @@ I made a program in Python using Tkinter as user interface that allows the user 
 1. Tkinter
 2. datetime
 
-## Galery
-
-![Age-calculator-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/agecalculatorpython-0.jpg)
-
-![Age-calculator-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/agecalculatorpython-1.jpg)
-
-![Age-calculator-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/agecalculatorpython-2.jpg)
-
-![Age-calculator-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/agecalculatorpython-3.jpg)
-
 ## Portfolio Link
 
-`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Age%20Calculator%20Program`
+[`https://www.diegolibonati.com.ar/#/project/75`](https://www.diegolibonati.com.ar/#/project/75)
 
 ## Video
 
