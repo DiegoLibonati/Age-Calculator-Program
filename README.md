@@ -4,7 +4,7 @@
 
 1. Clone the repository
 2. Join to the correct path of the clone
-3. Use `python age_calculator.py` to execute program
+3. Use `python ./src/app.py` to execute program
 
 ## Description
 
@@ -32,7 +32,7 @@ https://user-images.githubusercontent.com/99032604/198900699-c37c81e7-17e7-4ce9-
 Whenever the `Calculate age` button is touched and the inputs are complete this function will be executed: `get_current_age()`. This function will collect all the information that we pass it by the inputs and depending on the date that we pass it will make the pertinent calculations to know how old is the person with that information entered:
 
 ```
-def get_current_age():
+def get_current_age() -> None:
     current_year = datetime.now().year
     current_month = datetime.now().month
     current_day = datetime.now().day
@@ -46,25 +46,25 @@ def get_current_age():
         final_label["text"] = "Values not found"
     elif int(get_year) > current_year:
         final_label["text"] = "That is not possible, you cant born in the future"
+        return
     elif int(get_month) < 0 or int(get_month) > 12:
         final_label["text"] = "The number of the month is not possible"
+        return
     elif int(get_day) < 0 or int(get_day) > 31:
         final_label["text"] = "The number of the day is not possible"
-    else:
-        relative_age = current_year - int(get_year)
+        return
 
-        if current_month > int(get_month):
-            relative_age += 1
-            final_label["text"] = f"Hi {get_name}, your age is {relative_age}."
+    relative_age = current_year - int(get_year)
 
-        elif int(get_month) == current_month and current_day < int(get_day):
-            relative_age -= 1
-            final_label["text"] = f"Hi {get_name}, your age is {relative_age}."
-
-        elif int(get_month) == current_month and current_day >= int(get_day):
-            relative_age += 1
-            final_label["text"] = f"Hi {get_name}, your age is {relative_age}."
-
-        else:
-            final_label["text"] = f"Hi {get_name}, your age is {relative_age}."
+    if current_month > int(get_month):
+        relative_age += 1
+    elif int(get_month) == current_month and current_day < int(get_day):
+        relative_age -= 1
+    elif int(get_month) == current_month and current_day >= int(get_day):
+        relative_age += 1
+    elif  current_month < int(get_month):
+        relative_age -= 1
+        
+    final_label["text"] = f"Hi {get_name}, your age is {relative_age}."
+    return
 ```
