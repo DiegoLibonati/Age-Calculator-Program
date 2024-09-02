@@ -21,7 +21,7 @@ I made a program in Python using Tkinter as user interface that allows the user 
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/75`](https://www.diegolibonati.com.ar/#/project/75)
+[https://www.diegolibonati.com.ar/#/project/75](https://www.diegolibonati.com.ar/#/project/75)
 
 ## Video
 
