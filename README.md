@@ -1,4 +1,4 @@
-# Age-Calculator
+# Age Calculator
 
 ## Getting Started
 
