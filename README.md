@@ -19,7 +19,7 @@ I made a program in Python using Tkinter as user interface that allows the user 
 1. tkinter
 2. datetime
 3. logging
-4. pytest -> You need to install it -> `pip install pytest`
+4. pytest
 
 ## Portfolio Link
 
@@ -29,11 +29,14 @@ I made a program in Python using Tkinter as user interface that allows the user 
 
 https://user-images.githubusercontent.com/99032604/198900699-c37c81e7-17e7-4ce9-9211-9b8af5f73177.mp4
 
-## PyTest
+## Testing
 
-1. Enter the test folder
-2. Run the command `pytest --log-cli-level=INFO`
-3. Now you can see if the tests passed
+1. Join to the correct path of the clone
+2. Execute: `python -m venv venv`
+3. Execute in Windows: `venv\Scripts\activate`
+4. Execute: `pip install -r requirements.txt`
+5. Execute: `pip install -r requirements.test.txt`
+6. Execute: `pytest --log-cli-level=INFO`
 
 ## Documentation
 
