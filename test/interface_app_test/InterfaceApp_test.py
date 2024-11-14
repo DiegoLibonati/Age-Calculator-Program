@@ -1,9 +1,8 @@
 import logging
 
-from tkinter import Tk
+
 from datetime import datetime
 
-from pytest import fixture
 from pytest import mark
 
 from src.models.InterfaceApp import InterfaceApp
@@ -18,11 +17,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 CUSTOM_BG = "" or "#C98686"
 
-
-@fixture
-def interface_app() -> InterfaceApp:
-    root = Tk()
-    return InterfaceApp(root=root)
 
 def test_initial_config_tk_app(interface_app: InterfaceApp) -> None:
     root = interface_app.root
