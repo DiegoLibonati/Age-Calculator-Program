@@ -16,10 +16,17 @@ I made a program in Python using Tkinter as user interface that allows the user 
 
 ## Libraries used
 
-1. tkinter
-2. datetime
-3. logging
-4. pytest
+#### Requirements.txt
+
+```
+No 3rd libraries used.
+```
+
+#### Requirements.test.txt
+
+```
+pytest
+```
 
 ## Portfolio Link
 
