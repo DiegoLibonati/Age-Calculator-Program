@@ -3,7 +3,7 @@ from datetime import datetime
 
 from pytest import mark
 
-from src.models.InterfaceApp import InterfaceApp
+from src.models import InterfaceApp
 from src.utils.constants import (
     ERROR_FUTURE_DATE,
     ERROR_INVALID_DATE,
