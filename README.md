@@ -34,7 +34,7 @@ I made a program in Python using Tkinter as user interface that allows the user 
 #### Requirements.txt
 
 ```
-No 3rd libraries used.
+pre-commit==4.3.0
 ```
 
 #### Requirements.test.txt
