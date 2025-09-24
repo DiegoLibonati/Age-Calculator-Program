@@ -2,15 +2,15 @@ import logging
 from datetime import datetime
 
 from src.ui.interface_app import InterfaceApp
-from src.utils.constants import (
-    BG_COLOR,
-    ERROR_FUTURE_DATE,
-    ERROR_INVALID_DATE,
-    ERROR_MISSING_VALUES,
-    ERROR_MONTH_RANGE,
-    ERROR_NON_NUMERIC,
-    TEXT_HELLO,
+from src.utils.messages import (
+    MESSAGE_ERROR_FUTURE_DATE,
+    MESSAGE_ERROR_INVALID_DATE,
+    MESSAGE_ERROR_MISSING_VALUES,
+    MESSAGE_ERROR_MONTH_RANGE,
+    MESSAGE_ERROR_NON_NUMERIC,
+    MESSAGE_HELLO,
 )
+from src.utils.styles import BG_COLOR
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -53,7 +53,7 @@ def test_get_current_age_valid(interface_app: InterfaceApp) -> None:
         else current_date.year - year - 1
     )
 
-    assert final_label["text"] == TEXT_HELLO.format(name=name, age=relative_age)
+    assert final_label["text"] == MESSAGE_HELLO.format(name=name, age=relative_age)
 
 
 def test_get_current_age_missing_values(interface_app: InterfaceApp) -> None:
@@ -65,7 +65,7 @@ def test_get_current_age_missing_values(interface_app: InterfaceApp) -> None:
     interface_app._get_current_age()
     final_label = interface_app.final_label
 
-    assert final_label["text"] == ERROR_MISSING_VALUES
+    assert final_label["text"] == MESSAGE_ERROR_MISSING_VALUES
 
 
 def test_get_current_age_with_non_numeric(interface_app: InterfaceApp) -> None:
@@ -77,7 +77,7 @@ def test_get_current_age_with_non_numeric(interface_app: InterfaceApp) -> None:
     interface_app._get_current_age()
     final_label = interface_app.final_label
 
-    assert final_label["text"] == ERROR_NON_NUMERIC
+    assert final_label["text"] == MESSAGE_ERROR_NON_NUMERIC
 
 
 def test_get_current_age_error_future(interface_app: InterfaceApp) -> None:
@@ -90,7 +90,7 @@ def test_get_current_age_error_future(interface_app: InterfaceApp) -> None:
     interface_app._get_current_age()
     final_label = interface_app.final_label
 
-    assert final_label["text"] == ERROR_FUTURE_DATE
+    assert final_label["text"] == MESSAGE_ERROR_FUTURE_DATE
 
 
 def test_get_current_age_error_month_range(interface_app: InterfaceApp) -> None:
@@ -102,7 +102,7 @@ def test_get_current_age_error_month_range(interface_app: InterfaceApp) -> None:
     interface_app._get_current_age()
     final_label = interface_app.final_label
 
-    assert final_label["text"] == ERROR_MONTH_RANGE
+    assert final_label["text"] == MESSAGE_ERROR_MONTH_RANGE
 
 
 def test_get_current_age_error_invalid_date(interface_app: InterfaceApp) -> None:
@@ -114,4 +114,4 @@ def test_get_current_age_error_invalid_date(interface_app: InterfaceApp) -> None
     interface_app._get_current_age()
     final_label = interface_app.final_label
 
-    assert final_label["text"] == ERROR_INVALID_DATE
+    assert final_label["text"] == MESSAGE_ERROR_INVALID_DATE

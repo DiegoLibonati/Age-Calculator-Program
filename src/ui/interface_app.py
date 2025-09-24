@@ -1,14 +1,14 @@
 from tkinter import Button, Entry, Label, StringVar, Tk
 
-from src.core.age_calculator import calculate_age, validate_inputs
-from src.utils.constants import (
+from src.utils.helpers import calculate_age, validate_inputs
+from src.utils.messages import MESSAGE_HELLO
+from src.utils.styles import (
     BG_COLOR,
     BUTTON_BG,
     BUTTON_FG,
     BUTTON_FONT,
     LABEL_FG,
     LABEL_FONT,
-    TEXT_HELLO,
 )
 
 
@@ -75,4 +75,4 @@ class InterfaceApp:
 
         year, month, day = int(year), int(month), int(day)
         relative_age = calculate_age(year=year, month=month, day=day)
-        self.final_label["text"] = TEXT_HELLO.format(name=name, age=relative_age)
+        self.final_label["text"] = MESSAGE_HELLO.format(name=name, age=relative_age)

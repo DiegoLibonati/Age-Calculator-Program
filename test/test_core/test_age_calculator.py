@@ -3,13 +3,13 @@ from datetime import datetime
 
 from pytest import mark
 
-from src.core.age_calculator import calculate_age, is_valid_date, validate_inputs
-from src.utils.constants import (
-    ERROR_FUTURE_DATE,
-    ERROR_INVALID_DATE,
-    ERROR_MISSING_VALUES,
-    ERROR_MONTH_RANGE,
-    ERROR_NON_NUMERIC,
+from src.utils.helpers import calculate_age, is_valid_date, validate_inputs
+from src.utils.messages import (
+    MESSAGE_ERROR_FUTURE_DATE,
+    MESSAGE_ERROR_INVALID_DATE,
+    MESSAGE_ERROR_MISSING_VALUES,
+    MESSAGE_ERROR_MONTH_RANGE,
+    MESSAGE_ERROR_NON_NUMERIC,
 )
 
 logging.basicConfig(
@@ -20,10 +20,10 @@ logging.basicConfig(
 @mark.parametrize(
     "name, year, month, day, expected",
     [
-        ("", "2000", "5", "10", ERROR_MISSING_VALUES),
-        ("John", "", "5", "10", ERROR_MISSING_VALUES),
-        ("John", "abcd", "5", "10", ERROR_NON_NUMERIC),
-        ("John", "2000", "May", "10", ERROR_NON_NUMERIC),
+        ("", "2000", "5", "10", MESSAGE_ERROR_MISSING_VALUES),
+        ("John", "", "5", "10", MESSAGE_ERROR_MISSING_VALUES),
+        ("John", "abcd", "5", "10", MESSAGE_ERROR_NON_NUMERIC),
+        ("John", "2000", "May", "10", MESSAGE_ERROR_NON_NUMERIC),
     ],
 )
 def test_validate_inputs_errors_basic(name, year, month, day, expected):
@@ -34,18 +34,18 @@ def test_validate_inputs_errors_basic(name, year, month, day, expected):
 def test_validate_inputs_future_date():
     future_year = datetime.now().year + 1
     result = validate_inputs("John", str(future_year), "5", "10")
-    assert result == ERROR_FUTURE_DATE
+    assert result == MESSAGE_ERROR_FUTURE_DATE
 
 
 @mark.parametrize("month", ["0", "13"])
 def test_validate_inputs_month_out_of_range(month):
     result = validate_inputs("John", "2000", month, "10")
-    assert result == ERROR_MONTH_RANGE
+    assert result == MESSAGE_ERROR_MONTH_RANGE
 
 
 def test_validate_inputs_invalid_date():
     result = validate_inputs("John", "2000", "2", "30")  # Febrero 30 no existe
-    assert result == ERROR_INVALID_DATE
+    assert result == MESSAGE_ERROR_INVALID_DATE
 
 
 def test_validate_inputs_valid():
