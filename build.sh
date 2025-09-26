@@ -16,6 +16,6 @@ echo ">>> Installing build dependencies"
 pip install -r requirements.build.txt
 
 echo ">>> Creating executable"
-pyinstaller --onefile --windowed src/app.py
+pyinstaller app.spec
 
 echo ">>> Build completed! Executable is in dist/"
