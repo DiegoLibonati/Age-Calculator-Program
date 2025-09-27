@@ -27,7 +27,7 @@ I made a program in Python using Tkinter as user interface that allows the user 
 
 ## Technologies used
 
-1. Python
+1. Python >= 3.11
 
 ## Libraries used
 
