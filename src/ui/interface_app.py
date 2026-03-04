@@ -1,78 +1,41 @@
-from tkinter import Button, Entry, Label, StringVar, Tk
+from tkinter import Tk
 
+from src.configs.default_config import DefaultConfig
+from src.constants.messages import MESSAGE_HELLO
+from src.ui.styles import Styles
+from src.ui.views.main_view import MainView
 from src.utils.helpers import calculate_age, validate_inputs
-from src.utils.messages import MESSAGE_HELLO
-from src.utils.styles import (
-    BG_COLOR,
-    BUTTON_BG,
-    BUTTON_FG,
-    BUTTON_FONT,
-    LABEL_FG,
-    LABEL_FONT,
-)
 
 
 class InterfaceApp:
-    def __init__(self, root: Tk, bg: str = BG_COLOR) -> None:
-        self.root = root
-        self.root.title("Age Calculator")
-        self.root.geometry("400x300")
-        self.root.resizable(False, False)
-        self.root.config(bg=bg)
+    def __init__(self, root: Tk, config: DefaultConfig, styles: Styles = Styles()) -> None:
+        self._styles = styles
+        self._config = config
+        self._root = root
+        self._root.title("Age Calculator")
+        self._root.geometry("400x300")
+        self._root.resizable(False, False)
+        self._root.config(background=self._styles.PRIMARY_COLOR)
 
-        self.__create_widgets()
-
-    def __create_widgets(self) -> None:
-        self.name = StringVar()
-        self.year = StringVar()
-        self.month = StringVar()
-        self.day = StringVar()
-
-        Label(
-            self.root, font=LABEL_FONT, text="Name: ", bg=BG_COLOR, fg=LABEL_FG
-        ).place(x=10, y=10)
-        Entry(self.root, font=LABEL_FONT, textvariable=self.name).place(x=100, y=10)
-
-        Label(
-            self.root, font=LABEL_FONT, text="Year: ", bg=BG_COLOR, fg=LABEL_FG
-        ).place(x=10, y=50)
-        Entry(self.root, font=LABEL_FONT, textvariable=self.year).place(x=100, y=50)
-
-        Label(
-            self.root, font=LABEL_FONT, text="Month: ", bg=BG_COLOR, fg=LABEL_FG
-        ).place(x=10, y=90)
-        Entry(self.root, font=LABEL_FONT, textvariable=self.month).place(x=100, y=90)
-
-        Label(self.root, font=LABEL_FONT, text="Day: ", bg=BG_COLOR, fg=LABEL_FG).place(
-            x=10, y=130
+        self._main_view = MainView(
+            root=self._root,
+            styles=self._styles,
+            on_calculate=self._get_current_age,
         )
-        Entry(self.root, font=LABEL_FONT, textvariable=self.day).place(x=100, y=130)
-
-        Button(
-            self.root,
-            font=BUTTON_FONT,
-            bg=BUTTON_BG,
-            fg=BUTTON_FG,
-            text="Calculate age",
-            command=self._get_current_age,
-        ).place(x=200, y=200, anchor="center")
-
-        self.final_label = Label(self.root, font=LABEL_FONT, bg=BG_COLOR, fg=LABEL_FG)
-        self.final_label.place(x=200, y=250, anchor="center")
+        self._main_view.grid(row=0, column=0, sticky="nsew")
+        self._root.columnconfigure(0, weight=1)
+        self._root.rowconfigure(0, weight=1)
 
     def _get_current_age(self) -> None:
-        name, year, month, day = (
-            self.name.get(),
-            self.year.get(),
-            self.month.get(),
-            self.day.get(),
-        )
+        name = self._main_view.name.get()
+        year = self._main_view.year.get()
+        month = self._main_view.month.get()
+        day = self._main_view.day.get()
 
         error = validate_inputs(name, year, month, day)
         if error:
-            self.final_label["text"] = error
+            self._main_view.set_result(error)
             return
 
-        year, month, day = int(year), int(month), int(day)
-        relative_age = calculate_age(year=year, month=month, day=day)
-        self.final_label["text"] = MESSAGE_HELLO.format(name=name, age=relative_age)
+        relative_age = calculate_age(year=int(year), month=int(month), day=int(day))
+        self._main_view.set_result(MESSAGE_HELLO.format(name=name, age=relative_age))

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from src.utils.messages import (
+from src.constants.messages import (
     MESSAGE_ERROR_FUTURE_DATE,
     MESSAGE_ERROR_INVALID_DATE,
     MESSAGE_ERROR_MISSING_VALUES,
@@ -32,12 +32,7 @@ def validate_inputs(name: str, year: str, month: str, day: str) -> str | None:
 
 def calculate_age(year: int, month: int, day: int) -> int:
     current_date = datetime.now()
-    return (
-        current_date.year - year
-        if month < current_date.month
-        or (month == current_date.month and day <= current_date.day)
-        else current_date.year - year - 1
-    )
+    return current_date.year - year if month < current_date.month or (month == current_date.month and day <= current_date.day) else current_date.year - year - 1
 
 
 def is_valid_date(year: int, month: int, day: int) -> bool:

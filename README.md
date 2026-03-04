@@ -9,12 +9,12 @@ The main goal is to explore and demonstrate best practices, patterns, and techno
 ## Getting Started
 
 1. Clone the repository
-2. Join to the correct path of the clone
-3. Execute: `python -m venv venv`
-4. Execute in Windows: `venv\Scripts\activate`
+2. Go to the repository folder and execute: `python -m venv venv`
+3. Execute in Windows: `venv\Scripts\activate`
+4. Execute in Linux/Mac: `source venv/bin/activate`
 5. Execute: `pip install -r requirements.txt`
 6. Execute: `pip install -r requirements.test.txt`
-7. Use `python -m src.app` to execute program
+7. Use `python app.py` or `python -m src` to execute the program
 
 ### Pre-Commit for Development
 
@@ -28,6 +28,7 @@ I made a program in Python using Tkinter as user interface that allows the user 
 ## Technologies used
 
 1. Python >= 3.11
+2. Tkinter
 
 ## Libraries used
 
@@ -41,6 +42,10 @@ pre-commit==4.3.0
 
 ```
 pytest==8.4.2
+pytest-env==1.1.5
+pytest-cov==4.1.0
+pytest-timeout==2.3.1
+pytest-xdist==3.5.0
 ```
 
 #### Requirements.build.txt
@@ -59,9 +64,13 @@ https://user-images.githubusercontent.com/99032604/198900699-c37c81e7-17e7-4ce9-
 
 ## Testing
 
-1. Join to the correct path of the clone
-2. Execute in Windows: `venv\Scripts\activate`
-3. Execute: `pytest --log-cli-level=INFO`
+1. Go to the repository folder
+2. Execute: `python -m venv venv`
+3. Execute in Windows: `venv\Scripts\activate`
+4. Execute in Linux/Mac: `source venv/bin/activate`
+5. Execute: `pip install -r requirements.txt`
+6. Execute: `pip install -r requirements.test.txt`
+7. Execute: `pytest --log-cli-level=INFO`
 
 ## Build
 
@@ -69,20 +78,30 @@ You can generate a standalone executable (`.exe` on Windows, or binary on Linux/
 
 ### Windows
 
-1. Join to the correct path of the clone
+1. Go to the repository folder
 2. Activate your virtual environment: `venv\Scripts\activate`
 3. Install build dependencies: `pip install -r requirements.build.txt`
-4. Create the executable: `pyinstaller app.spec"`
+4. Create the executable: `pyinstaller app.spec`
 
 Alternatively, you can run the helper script: `build.bat`
 
 ### Linux / Mac
 
-1. Join to the correct path of the clone
+1. Go to the repository folder
 2. Activate your virtual environment: `source venv/bin/activate`
 3. Install build dependencies: `pip install -r requirements.build.txt`
-4. Create the executable: `pyinstaller app.spec"`
+4. Create the executable: `pyinstaller app.spec`
 
 Alternatively, you can run the helper script: `./build.sh`
 
+## Env Keys
+
+1. `ENVIRONMENT`: Defines the application environment. Accepts `development`, `production`, or `testing`.
+
+```
+ENVIRONMENT=development
+```
+
 ## Known Issues
+
+None at the moment.

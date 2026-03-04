@@ -1,7 +1,5 @@
-# Mensajes de UI
 MESSAGE_HELLO = "Hi {name}, your age is {age}."
 
-# Mensajes de error
 MESSAGE_ERROR_INVALID_DATE = "The date entered is not valid."
 MESSAGE_ERROR_FUTURE_DATE = "That is not possible; you can't be born in the future."
 MESSAGE_ERROR_MISSING_VALUES = "Please complete all fields."
