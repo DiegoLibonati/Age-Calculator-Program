@@ -35,6 +35,7 @@ I made a program in Python using Tkinter as user interface that allows the user 
 #### Requirements.txt
 
 ```
+python-dotenv==1.0.1
 pre-commit==4.3.0
 ```
 
