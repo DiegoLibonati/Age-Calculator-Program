@@ -23,31 +23,31 @@ class MainView(Frame):
 
         LabeledEntry(
             parent=self,
-            label_text="Name",
+            label_text="Name:",
             styles=self._styles,
             variable=self.name,
-        ).grid(row=0, column=0, pady=(20, 5), sticky="ew")
+        ).grid(row=0, column=0, pady=(20, 5), sticky="w")
 
         LabeledEntry(
             parent=self,
-            label_text="Year",
+            label_text="Year:",
             styles=self._styles,
             variable=self.year,
-        ).grid(row=1, column=0, pady=5, sticky="ew")
+        ).grid(row=1, column=0, pady=5, sticky="w")
 
         LabeledEntry(
             parent=self,
-            label_text="Month",
+            label_text="Month:",
             styles=self._styles,
             variable=self.month,
-        ).grid(row=2, column=0, pady=5, sticky="ew")
+        ).grid(row=2, column=0, pady=5, sticky="w")
 
         LabeledEntry(
             parent=self,
-            label_text="Day",
+            label_text="Day:",
             styles=self._styles,
             variable=self.day,
-        ).grid(row=3, column=0, pady=5, sticky="ew")
+        ).grid(row=3, column=0, pady=5, sticky="w")
 
         Button(
             self,

@@ -69,7 +69,7 @@ class TestMainViewInit:
             MainView.__init__(instance, root=mock_root, styles=mock_styles, on_calculate=mock_on_calculate)
 
         calls: list[str | None] = [call.kwargs.get("label_text") for call in mock_labeled_entry.call_args_list]
-        assert "Name" in calls
+        assert "Name:" in calls
 
     def test_labeled_entry_created_for_year(self, mock_root: MagicMock, mock_styles: MagicMock, mock_on_calculate: MagicMock) -> None:
         with (
@@ -88,7 +88,7 @@ class TestMainViewInit:
             MainView.__init__(instance, root=mock_root, styles=mock_styles, on_calculate=mock_on_calculate)
 
         calls: list[str | None] = [call.kwargs.get("label_text") for call in mock_labeled_entry.call_args_list]
-        assert "Year" in calls
+        assert "Year:" in calls
 
     def test_labeled_entry_created_for_month(self, mock_root: MagicMock, mock_styles: MagicMock, mock_on_calculate: MagicMock) -> None:
         with (
@@ -107,7 +107,7 @@ class TestMainViewInit:
             MainView.__init__(instance, root=mock_root, styles=mock_styles, on_calculate=mock_on_calculate)
 
         calls: list[str | None] = [call.kwargs.get("label_text") for call in mock_labeled_entry.call_args_list]
-        assert "Month" in calls
+        assert "Month:" in calls
 
     def test_labeled_entry_created_for_day(self, mock_root: MagicMock, mock_styles: MagicMock, mock_on_calculate: MagicMock) -> None:
         with (
@@ -126,7 +126,7 @@ class TestMainViewInit:
             MainView.__init__(instance, root=mock_root, styles=mock_styles, on_calculate=mock_on_calculate)
 
         calls: list[str | None] = [call.kwargs.get("label_text") for call in mock_labeled_entry.call_args_list]
-        assert "Day" in calls
+        assert "Day:" in calls
 
     def test_button_command_is_on_calculate(self, mock_root: MagicMock, mock_styles: MagicMock, mock_on_calculate: MagicMock) -> None:
         with (
