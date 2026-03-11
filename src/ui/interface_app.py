@@ -1,9 +1,10 @@
 from tkinter import Tk
 
 from src.configs.default_config import DefaultConfig
-from src.constants.messages import MESSAGE_HELLO
+from src.constants.messages import MESSAGE_SUCCESS_AGE
 from src.ui.styles import Styles
 from src.ui.views.main_view import MainView
+from src.utils.dialogs import ValidationDialogError
 from src.utils.helpers import calculate_age, validate_inputs
 
 
@@ -33,9 +34,10 @@ class InterfaceApp:
         day = self._main_view.day.get()
 
         error = validate_inputs(name, year, month, day)
+
         if error:
-            self._main_view.set_result(error)
+            ValidationDialogError(message=error).dialog()
             return
 
         relative_age = calculate_age(year=int(year), month=int(month), day=int(day))
-        self._main_view.set_result(MESSAGE_HELLO.format(name=name, age=relative_age))
+        self._main_view.set_result(MESSAGE_SUCCESS_AGE.format(name=name, age=relative_age))

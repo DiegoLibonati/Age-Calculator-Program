@@ -1,31 +1,26 @@
 from datetime import datetime
 
 from src.constants.messages import (
-    MESSAGE_ERROR_FUTURE_DATE,
-    MESSAGE_ERROR_INVALID_DATE,
-    MESSAGE_ERROR_MISSING_VALUES,
-    MESSAGE_ERROR_MONTH_RANGE,
-    MESSAGE_ERROR_NON_NUMERIC,
+    MESSAGE_NOT_VALID_DATE,
+    MESSAGE_NOT_VALID_FIELDS,
+    MESSAGE_NOT_VALID_MONTH,
 )
 
 
 def validate_inputs(name: str, year: str, month: str, day: str) -> str | None:
     if not name or not year or not month or not day:
-        return MESSAGE_ERROR_MISSING_VALUES
+        return MESSAGE_NOT_VALID_FIELDS
 
     try:
         year, month, day = int(year), int(month), int(day)
     except ValueError:
-        return MESSAGE_ERROR_NON_NUMERIC
+        return MESSAGE_NOT_VALID_FIELDS
 
-    if year > datetime.now().year:
-        return MESSAGE_ERROR_FUTURE_DATE
+    if year > datetime.now().year or not is_valid_date(year, month, day):
+        return MESSAGE_NOT_VALID_DATE
 
     if not (1 <= month <= 12):
-        return MESSAGE_ERROR_MONTH_RANGE
-
-    if not is_valid_date(year, month, day):
-        return MESSAGE_ERROR_INVALID_DATE
+        return MESSAGE_NOT_VALID_MONTH
 
     return None
 

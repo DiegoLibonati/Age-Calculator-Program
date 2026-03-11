@@ -2,6 +2,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+from src.constants.messages import MESSAGE_NOT_VALID_FIELDS, MESSAGE_SUCCESS_AGE
 from src.ui.interface_app import InterfaceApp
 from src.ui.styles import Styles
 
@@ -55,14 +56,7 @@ class TestInterfaceAppInit:
 
         assert isinstance(app._styles, Styles)
 
-    def test_main_view_is_created(self, mock_root: MagicMock, mock_styles: MagicMock) -> None:
-        with patch("src.ui.interface_app.MainView") as mock_main_view_class:
-            mock_main_view_class.return_value.grid = MagicMock()
-            InterfaceApp(root=mock_root, config=MagicMock(), styles=mock_styles)
-
-        mock_main_view_class.assert_called_once()
-
-    def test_main_view_on_calculate_is_bound(self, mock_root: MagicMock, mock_styles: MagicMock) -> None:
+    def test_main_view_receives_on_calculate(self, mock_root: MagicMock, mock_styles: MagicMock) -> None:
         with patch("src.ui.interface_app.MainView") as mock_main_view_class:
             mock_main_view_class.return_value.grid = MagicMock()
             InterfaceApp(root=mock_root, config=MagicMock(), styles=mock_styles)
@@ -72,44 +66,91 @@ class TestInterfaceAppInit:
 
 
 class TestInterfaceAppGetCurrentAge:
-    def test_calls_set_result_with_error_when_inputs_invalid(self, interface_app: InterfaceApp) -> None:
+    def test_validation_dialog_called_when_inputs_are_invalid(self, interface_app: InterfaceApp) -> None:
         interface_app._main_view.name.get.return_value = ""
         interface_app._main_view.year.get.return_value = ""
         interface_app._main_view.month.get.return_value = ""
         interface_app._main_view.day.get.return_value = ""
 
-        with patch("src.ui.interface_app.validate_inputs", return_value="Please complete all fields."):
+        with (
+            patch("src.ui.interface_app.validate_inputs", return_value=MESSAGE_NOT_VALID_FIELDS),
+            patch("src.ui.interface_app.ValidationDialogError") as mock_dialog_class,
+        ):
+            mock_dialog_class.return_value = MagicMock()
             interface_app._get_current_age()
 
-        interface_app._main_view.set_result.assert_called_once_with("Please complete all fields.")
+        mock_dialog_class.assert_called_once_with(message=MESSAGE_NOT_VALID_FIELDS)
+        mock_dialog_class.return_value.dialog.assert_called_once()
 
-    def test_calls_set_result_with_age_when_inputs_valid(self, interface_app: InterfaceApp) -> None:
-        interface_app._main_view.name.get.return_value = "Ana"
-        interface_app._main_view.year.get.return_value = "1990"
-        interface_app._main_view.month.get.return_value = "5"
+    def test_set_result_not_called_when_inputs_are_invalid(self, interface_app: InterfaceApp) -> None:
+        interface_app._main_view.name.get.return_value = ""
+        interface_app._main_view.year.get.return_value = ""
+        interface_app._main_view.month.get.return_value = ""
+        interface_app._main_view.day.get.return_value = ""
+
+        with (
+            patch("src.ui.interface_app.validate_inputs", return_value=MESSAGE_NOT_VALID_FIELDS),
+            patch("src.ui.interface_app.ValidationDialogError") as mock_dialog_class,
+        ):
+            mock_dialog_class.return_value = MagicMock()
+            interface_app._get_current_age()
+
+        interface_app._main_view.set_result.assert_not_called()
+
+    def test_set_result_called_with_formatted_message(self, interface_app: InterfaceApp) -> None:
+        interface_app._main_view.name.get.return_value = "Alice"
+        interface_app._main_view.year.get.return_value = "2000"
+        interface_app._main_view.month.get.return_value = "6"
         interface_app._main_view.day.get.return_value = "15"
 
         with (
             patch("src.ui.interface_app.validate_inputs", return_value=None),
-            patch("src.ui.interface_app.calculate_age", return_value=34),
+            patch("src.ui.interface_app.calculate_age", return_value=25),
         ):
             interface_app._get_current_age()
 
-        interface_app._main_view.set_result.assert_called_once()
-        call_arg: str = interface_app._main_view.set_result.call_args[0][0]
-        assert "Ana" in call_arg
-        assert "34" in call_arg
+        expected: str = MESSAGE_SUCCESS_AGE.format(name="Alice", age=25)
+        interface_app._main_view.set_result.assert_called_once_with(expected)
 
-    def test_does_not_call_calculate_age_when_error(self, interface_app: InterfaceApp) -> None:
-        interface_app._main_view.name.get.return_value = ""
-        interface_app._main_view.year.get.return_value = ""
-        interface_app._main_view.month.get.return_value = ""
-        interface_app._main_view.day.get.return_value = ""
+    def test_calculate_age_called_with_parsed_integers(self, interface_app: InterfaceApp) -> None:
+        interface_app._main_view.name.get.return_value = "Alice"
+        interface_app._main_view.year.get.return_value = "2000"
+        interface_app._main_view.month.get.return_value = "6"
+        interface_app._main_view.day.get.return_value = "15"
 
         with (
-            patch("src.ui.interface_app.validate_inputs", return_value="error"),
-            patch("src.ui.interface_app.calculate_age") as mock_calculate,
+            patch("src.ui.interface_app.validate_inputs", return_value=None),
+            patch("src.ui.interface_app.calculate_age", return_value=25) as mock_calculate,
         ):
             interface_app._get_current_age()
 
-        mock_calculate.assert_not_called()
+        mock_calculate.assert_called_once_with(year=2000, month=6, day=15)
+
+    def test_validation_dialog_not_called_when_inputs_are_valid(self, interface_app: InterfaceApp) -> None:
+        interface_app._main_view.name.get.return_value = "Alice"
+        interface_app._main_view.year.get.return_value = "2000"
+        interface_app._main_view.month.get.return_value = "6"
+        interface_app._main_view.day.get.return_value = "15"
+
+        with (
+            patch("src.ui.interface_app.validate_inputs", return_value=None),
+            patch("src.ui.interface_app.calculate_age", return_value=25),
+            patch("src.ui.interface_app.ValidationDialogError") as mock_dialog_class,
+        ):
+            interface_app._get_current_age()
+
+        mock_dialog_class.assert_not_called()
+
+    def test_validate_inputs_called_with_all_fields(self, interface_app: InterfaceApp) -> None:
+        interface_app._main_view.name.get.return_value = "Alice"
+        interface_app._main_view.year.get.return_value = "2000"
+        interface_app._main_view.month.get.return_value = "6"
+        interface_app._main_view.day.get.return_value = "15"
+
+        with (
+            patch("src.ui.interface_app.validate_inputs", return_value=None) as mock_validate,
+            patch("src.ui.interface_app.calculate_age", return_value=25),
+        ):
+            interface_app._get_current_age()
+
+        mock_validate.assert_called_once_with("Alice", "2000", "6", "15")

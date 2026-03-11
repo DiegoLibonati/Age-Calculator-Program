@@ -1,8 +1,20 @@
-MESSAGE_HELLO = "Hi {name}, your age is {age}."
+# ##### SUCCESS #####
+MESSAGE_SUCCESS_AGE = "Hi {name}, your age is {age}."
 
-MESSAGE_ERROR_INVALID_DATE = "The date entered is not valid."
-MESSAGE_ERROR_FUTURE_DATE = "That is not possible; you can't be born in the future."
-MESSAGE_ERROR_MISSING_VALUES = "Please complete all fields."
-MESSAGE_ERROR_MONTH_RANGE = "Month should be between 1 and 12."
-MESSAGE_ERROR_DAY_RANGE = "Day is not valid for the given month."
-MESSAGE_ERROR_NON_NUMERIC = "Enter numbers for Year, Month, and Day."
+# ##### ERROR #####
+MESSAGE_ERROR_APP = "Internal error. Contact a developer."
+
+# ##### NOT #####
+
+# ##### NOT_VALID #####
+MESSAGE_NOT_VALID_FIELDS = "The fields entered are invalid."
+MESSAGE_NOT_VALID_MONTH = "Month should be between 1 and 12."
+MESSAGE_NOT_VALID_DAY = "Day is not valid for the given month."
+MESSAGE_NOT_VALID_DATE = "The date entered is not valid."
+
+# ##### NOT_EXISTS #####
+
+# ##### ALREADY_EXISTS #####
+
+# ##### NOT_FOUND #####
+MESSAGE_NOT_FOUND_DIALOG_TYPE = "The type of dialog to display is not found."
