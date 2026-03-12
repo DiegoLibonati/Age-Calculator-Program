@@ -36,8 +36,7 @@ class InterfaceApp:
         error = validate_inputs(name, year, month, day)
 
         if error:
-            ValidationDialogError(message=error).dialog()
-            return
+            raise ValidationDialogError(message=error)
 
         relative_age = calculate_age(year=int(year), month=int(month), day=int(day))
         self._main_view.set_result(MESSAGE_SUCCESS_AGE.format(name=name, age=relative_age))
