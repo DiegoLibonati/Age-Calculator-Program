@@ -1,12 +1,12 @@
 [project]
-name = "age-calculator-program"
+name = "age-calculator"
 version = "1.0.0"
 description = "I made a program in Python using Tkinter as user interface that allows the user to visualize how old he/she is depending on the year, month and day we pass it."
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
 pythonpath = "."
-testpaths = ["test"]
+testpaths = ["tests"]
 python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"

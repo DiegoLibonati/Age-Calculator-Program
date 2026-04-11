@@ -1,4 +1,4 @@
-# Age Calculator Program
+# Age Calculator
 
 ## Educational Purpose
 
@@ -65,11 +65,7 @@ pyinstaller==6.16.0
 
 ## Portfolio Link
 
-[https://www.diegolibonati.com.ar/#/project/Age-Calculator-Program](https://www.diegolibonati.com.ar/#/project/Age-Calculator-Program)
-
-## Video
-
-https://user-images.githubusercontent.com/99032604/198900699-c37c81e7-17e7-4ce9-9211-9b8af5f73177.mp4
+[https://www.diegolibonati.com.ar/#/project/age-calculator](https://www.diegolibonati.com.ar/#/project/age-calculator)
 
 ## Testing
 
