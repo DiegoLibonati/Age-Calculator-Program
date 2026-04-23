@@ -1,7 +1,7 @@
 [project]
 name = "age-snap"
 version = "1.0.0"
-description = "AgeSnap is a desktop application built with Python and Tkinter that calculates a person's exact age in years based on their date of birth. The user provides four inputs: their name, and the year, month, and day they were born. Upon clicking the calculate button, the app validates all fields — ensuring they are filled in, that the values are numeric, that the date is a real calendar date, and that the birth year is not in the future. If any validation fails, a descriptive error dialog is shown to the user. Once all inputs are valid, the app computes the current age by comparing the birth date against today's date, correctly accounting for whether the birthday has already occurred in the current year or not. The result is displayed directly in the interface as a personalized message showing the person's name and their calculated age."
+description = "Age Snap is a desktop application built with Python and Tkinter that calculates a person's exact age in years based on their date of birth."
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]

@@ -1,4 +1,4 @@
-# AgeSnap
+# Age Snap
 
 ## Educational Purpose
 
@@ -24,7 +24,7 @@ The main goal is to explore and demonstrate best practices, patterns, and techno
 
 ## Description
 
-**AgeSnap** is a desktop application built with Python and Tkinter that calculates a person's exact age in years based on their date of birth. The user provides four inputs: their name, and the year, month, and day they were born. Upon clicking the calculate button, the app validates all fields — ensuring they are filled in, that the values are numeric, that the date is a real calendar date, and that the birth year is not in the future. If any validation fails, a descriptive error dialog is shown to the user. Once all inputs are valid, the app computes the current age by comparing the birth date against today's date, correctly accounting for whether the birthday has already occurred in the current year or not. The result is displayed directly in the interface as a personalized message showing the person's name and their calculated age.
+**Age Snap** is a desktop application built with Python and Tkinter that calculates a person's exact age in years based on their date of birth. The user provides four inputs: their name, and the year, month, and day they were born. Upon clicking the calculate button, the app validates all fields — ensuring they are filled in, that the values are numeric, that the date is a real calendar date, and that the birth year is not in the future. If any validation fails, a descriptive error dialog is shown to the user. Once all inputs are valid, the app computes the current age by comparing the birth date against today's date, correctly accounting for whether the birthday has already occurred in the current year or not. The result is displayed directly in the interface as a personalized message showing the person's name and their calculated age.
 
 The application is structured with a clean separation of concerns: a config layer that supports `development`, `production`, and `testing` environments via a `.env` file; a UI layer composed of reusable Tkinter widgets (`LabeledEntry`, `MainView`, `InterfaceApp`); a utils layer with pure functions for validation and age calculation; a dialog error system based on a `BaseDialogError` hierarchy for consistent and user-friendly error handling; and a constants module that centralizes all user-facing strings. The app can also be packaged into a standalone executable using PyInstaller.
 

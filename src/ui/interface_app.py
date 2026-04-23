@@ -13,7 +13,7 @@ class InterfaceApp:
         self._styles = styles
         self._config = config
         self._root = root
-        self._root.title("AgeSnap")
+        self._root.title("Age Snap")
         self._root.geometry("400x300")
         self._root.resizable(False, False)
         self._root.config(background=self._styles.PRIMARY_COLOR)
