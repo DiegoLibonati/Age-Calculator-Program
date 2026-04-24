@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.constants.messages import MESSAGE_ERROR_APP
+from src.constants.messages import MESSAGE_ERROR_APP, MESSAGE_NOT_FOUND_DIALOG_TYPE
 from src.utils.dialogs import (
     AuthenticationDialogError,
     BaseDialog,
@@ -39,6 +39,16 @@ class TestBaseDialog:
     def test_title_for_error_type(self) -> None:
         dialog: BaseDialog = BaseDialog()
         assert dialog.title == "Error"
+
+    def test_title_for_warning_type(self) -> None:
+        dialog: BaseDialog = BaseDialog()
+        dialog.dialog_type = BaseDialog.WARNING
+        assert dialog.title == "Warning"
+
+    def test_title_for_info_type(self) -> None:
+        dialog: BaseDialog = BaseDialog()
+        dialog.dialog_type = BaseDialog.INFO
+        assert dialog.title == "Information"
 
     def test_to_dict_contains_dialog_type(self) -> None:
         dialog: BaseDialog = BaseDialog()
@@ -78,6 +88,13 @@ class TestBaseDialog:
         with patch.dict(BaseDialog._HANDLERS, {BaseDialog.INFO: mock_showinfo}):
             dialog.open()
         mock_showinfo.assert_called_once()
+
+    def test_open_with_invalid_dialog_type_falls_back_to_showerror(self) -> None:
+        dialog: BaseDialog = BaseDialog()
+        dialog.dialog_type = "INVALID"
+        with patch("src.utils.dialogs.messagebox.showerror") as mock_showerror:
+            dialog.open()
+        mock_showerror.assert_called_once_with(BaseDialog.ERROR, MESSAGE_NOT_FOUND_DIALOG_TYPE)
 
 
 class TestBaseDialogError:
@@ -131,15 +148,39 @@ class TestNotFoundDialogError:
     def test_is_base_dialog_error_subclass(self) -> None:
         assert issubclass(NotFoundDialogError, BaseDialogError)
 
+    def test_instantiation(self) -> None:
+        error: NotFoundDialogError = NotFoundDialogError()
+        assert error is not None
+
+    def test_default_message(self) -> None:
+        error: NotFoundDialogError = NotFoundDialogError()
+        assert error.message == "Resource not found"
+
 
 class TestConflictDialogError:
     def test_is_base_dialog_error_subclass(self) -> None:
         assert issubclass(ConflictDialogError, BaseDialogError)
 
+    def test_instantiation(self) -> None:
+        error: ConflictDialogError = ConflictDialogError()
+        assert error is not None
+
+    def test_default_message(self) -> None:
+        error: ConflictDialogError = ConflictDialogError()
+        assert error.message == "Conflict error"
+
 
 class TestBusinessDialogError:
     def test_is_base_dialog_error_subclass(self) -> None:
         assert issubclass(BusinessDialogError, BaseDialogError)
+
+    def test_instantiation(self) -> None:
+        error: BusinessDialogError = BusinessDialogError()
+        assert error is not None
+
+    def test_default_message(self) -> None:
+        error: BusinessDialogError = BusinessDialogError()
+        assert error.message == "Business rule violated"
 
 
 class TestDeprecatedDialogWarning:
