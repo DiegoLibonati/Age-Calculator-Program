@@ -6,22 +6,6 @@ This project was created primarily for **educational and learning purposes**.
 While it is well-structured and could technically be used in production, it is **not intended for commercialization**.  
 The main goal is to explore and demonstrate best practices, patterns, and technologies in software development.
 
-## Getting Started
-
-1. Clone the repository
-2. Go to the repository folder and execute: `python -m venv venv`
-3. Execute in Windows: `venv\Scripts\activate`
-4. Execute in Linux/Mac: `source venv/bin/activate`
-5. Execute: `pip install -r requirements.txt`
-6. Execute: `pip install -r requirements.dev.txt`
-7. Execute: `pip install -r requirements.test.txt`
-8. Use `python app.py` or `python -m src` to execute the program
-
-### Pre-Commit for Development
-
-1. Once you're inside the virtual environment, let's install the hooks specified in the pre-commit. Execute: `pre-commit install`
-2. Now every time you try to commit, the pre-commit lint will run. If you want to do it manually, you can run the command: `pre-commit run --all-files`
-
 ## Description
 
 **Age Snap** is a desktop application built with Python and Tkinter that calculates a person's exact age in years based on their date of birth. The user provides four inputs: their name, and the year, month, and day they were born. Upon clicking the calculate button, the app validates all fields — ensuring they are filled in, that the values are numeric, that the date is a real calendar date, and that the birth year is not in the future. If any validation fails, a descriptive error dialog is shown to the user. Once all inputs are valid, the app computes the current age by comparing the birth date against today's date, correctly accounting for whether the birthday has already occurred in the current year or not. The result is displayed directly in the interface as a personalized message showing the person's name and their calculated age.
@@ -34,6 +18,8 @@ The application is structured with a clean separation of concerns: a config laye
 2. Tkinter
 
 ## Libraries used
+
+The project splits its dependencies into separate requirements files depending on the workflow (runtime, development, testing, build).
 
 #### Requirements.txt
 
@@ -65,11 +51,38 @@ pytest-xdist==3.5.0
 pyinstaller==6.16.0
 ```
 
-## Portfolio Link
+## Getting Started
 
-[https://www.diegolibonati.com.ar/#/project/age-snap](https://www.diegolibonati.com.ar/#/project/age-snap)
+Follow these steps to set up the project locally for development.
+
+1. Clone the repository
+2. Go to the repository folder and execute: `python -m venv venv`
+3. Execute in Windows: `venv\Scripts\activate`
+4. Execute in Linux/Mac: `source venv/bin/activate`
+5. Execute: `pip install -r requirements.txt`
+6. Execute: `pip install -r requirements.dev.txt`
+7. Execute: `pip install -r requirements.test.txt`
+8. Copy the development env template: `cp .env.example.dev .env` (Windows: `copy .env.example.dev .env`)
+9. Use `python app.py` or `python -m src` to execute the program
+
+### Pre-Commit for Development
+
+1. Once you're inside the virtual environment, let's install the hooks specified in the pre-commit. Execute: `pre-commit install`
+2. Now every time you try to commit, the pre-commit lint will run. If you want to do it manually, you can run the command: `pre-commit run --all-files`
+
+## Env Keys
+
+The application is configured through environment variables loaded from the `.env` file you created in the previous step.
+
+1. `ENVIRONMENT`: Defines the application environment. Accepts `development`, `production`, or `testing`.
+
+```
+ENVIRONMENT=development
+```
 
 ## Testing
+
+With the project installed and the env file in place, you can run the test suite.
 
 1. Go to the repository folder
 2. Execute: `python -m venv venv`
@@ -79,9 +92,18 @@ pyinstaller==6.16.0
 6. Execute: `pip install -r requirements.test.txt`
 7. Execute: `pytest --log-cli-level=INFO`
 
+## Security Audit
+
+Before shipping, check your dependencies for known vulnerabilities using **pip-audit**.
+
+1. Go to the repository folder
+2. Activate your virtual environment
+3. Execute: `pip install -r requirements.dev.txt`
+4. Execute: `pip-audit -r requirements.txt`
+
 ## Build
 
-You can generate a standalone executable (`.exe` on Windows, or binary on Linux/Mac) using **PyInstaller**.
+Once tests pass and the audit is clean, you can generate a standalone executable (`.exe` on Windows, or binary on Linux/Mac) using **PyInstaller**.
 
 ### Windows
 
@@ -101,23 +123,10 @@ Alternatively, you can run the helper script: `build.bat`
 
 Alternatively, you can run the helper script: `./build.sh`
 
-## Security Audit
-
-You can check your dependencies for known vulnerabilities using **pip-audit**.
-
-1. Go to the repository folder
-2. Activate your virtual environment
-3. Execute: `pip install -r requirements.dev.txt`
-4. Execute: `pip-audit -r requirements.txt`
-
-## Env Keys
-
-1. `ENVIRONMENT`: Defines the application environment. Accepts `development`, `production`, or `testing`.
-
-```
-ENVIRONMENT=development
-```
-
 ## Known Issues
 
 None at the moment.
+
+## Portfolio Link
+
+[https://www.diegolibonati.com.ar/#/project/age-snap](https://www.diegolibonati.com.ar/#/project/age-snap)
