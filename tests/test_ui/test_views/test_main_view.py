@@ -7,6 +7,7 @@ from src.ui.styles import Styles
 from src.ui.views.main_view import MainView
 
 
+@pytest.mark.unit
 class TestMainView:
     @pytest.fixture(scope="function")
     def on_calculate(self) -> MagicMock:
@@ -36,18 +37,24 @@ class TestMainView:
 
     def test_set_result_updates_result_text(self, main_view: MainView) -> None:
         main_view.set_result("Hi Alice, your age is 30.")
+
         assert main_view._result_text.get() == "Hi Alice, your age is 30."
 
     def test_set_result_overwrites_previous_value(self, main_view: MainView) -> None:
         main_view.set_result("first result")
+
         main_view.set_result("second result")
+
         assert main_view._result_text.get() == "second result"
 
     def test_set_result_initial_text_is_empty(self, main_view: MainView) -> None:
         assert main_view._result_text.get() == ""
 
-    def test_on_calculate_callback_is_invoked(self, main_view: MainView, on_calculate: MagicMock) -> None:
+    def test_on_calculate_callback_is_invoked(
+        self, main_view: MainView, on_calculate: MagicMock
+    ) -> None:
         main_view._on_calculate()
+
         on_calculate.assert_called_once()
 
     def test_name_var_is_string_var(self, main_view: MainView) -> None:

@@ -1,11 +1,12 @@
-from tkinter import Button, Frame, Label, StringVar, Tk
+from collections.abc import Callable
+from tkinter import Button, Frame, Label, Misc, StringVar
 
 from src.ui.components.labeled_entry import LabeledEntry
 from src.ui.styles import Styles
 
 
 class MainView(Frame):
-    def __init__(self, root: Tk, styles: Styles, on_calculate: callable) -> None:
+    def __init__(self, root: Misc, styles: Styles, on_calculate: Callable[[], None]) -> None:
         super().__init__(root, bg=styles.PRIMARY_COLOR)
         self._styles = styles
         self._on_calculate = on_calculate

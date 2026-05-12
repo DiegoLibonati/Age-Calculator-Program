@@ -105,12 +105,21 @@ Before shipping, check your dependencies for known vulnerabilities using **pip-a
 
 Once tests pass and the audit is clean, you can generate a standalone executable (`.exe` on Windows, or binary on Linux/Mac) using **PyInstaller**.
 
+> **IMPORTANT — production `.env` is separate from your dev `.env`.**
+> `app.spec` bundles the project-root `.env` file into the executable. Before
+> building, you MUST replace your development `.env` with a production one
+> (typically by copying `.env.example.prod` to `.env` just before the build).
+> Never commit a real production `.env` (or real secrets) to the repository.
+> After building, restore your development `.env`.
+
 ### Windows
 
 1. Go to the repository folder
 2. Activate your virtual environment: `venv\Scripts\activate`
 3. Install build dependencies: `pip install -r requirements.build.txt`
-4. Create the executable: `pyinstaller app.spec`
+4. Prepare a production `.env`: `copy .env.example.prod .env` (edit it if needed; do NOT commit)
+5. Create the executable: `pyinstaller app.spec`
+6. Restore your development `.env`: `copy .env.example.dev .env`
 
 Alternatively, you can run the helper script: `build.bat`
 
@@ -119,7 +128,9 @@ Alternatively, you can run the helper script: `build.bat`
 1. Go to the repository folder
 2. Activate your virtual environment: `source venv/bin/activate`
 3. Install build dependencies: `pip install -r requirements.build.txt`
-4. Create the executable: `pyinstaller app.spec`
+4. Prepare a production `.env`: `cp .env.example.prod .env` (edit it if needed; do NOT commit)
+5. Create the executable: `pyinstaller app.spec`
+6. Restore your development `.env`: `cp .env.example.dev .env`
 
 Alternatively, you can run the helper script: `./build.sh`
 

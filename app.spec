@@ -1,6 +1,10 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-block_cipher = None
+# IMPORTANT: The `.env` file bundled below MUST be a production-specific file
+# (e.g. created by copying `.env.example.prod` to `.env` immediately before
+# running PyInstaller). The development `.env` (with ENVIRONMENT=development)
+# should NEVER be shipped inside the distributed executable. Real production
+# secrets must never be committed to the repository.
 
 a = Analysis(
     ['app.py'],
@@ -16,7 +20,7 @@ a = Analysis(
     optimize=0,
 )
 
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+pyz = PYZ(a.pure, a.zipped_data)
 
 exe = EXE(
     pyz,

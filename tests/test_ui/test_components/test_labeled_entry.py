@@ -6,6 +6,7 @@ from src.ui.components.labeled_entry import LabeledEntry
 from src.ui.styles import Styles
 
 
+@pytest.mark.unit
 class TestLabeledEntry:
     @pytest.fixture(scope="function")
     def variable(self, root: tk.Tk) -> tk.StringVar:
@@ -26,11 +27,14 @@ class TestLabeledEntry:
 
     def test_variable_set_updates_value(self, variable: tk.StringVar) -> None:
         variable.set("hello")
+
         assert variable.get() == "hello"
 
     def test_variable_set_overwrites_previous_value(self, variable: tk.StringVar) -> None:
         variable.set("first")
+
         variable.set("second")
+
         assert variable.get() == "second"
 
     def test_instantiation_with_show_parameter(self, root: tk.Tk) -> None:
@@ -42,6 +46,7 @@ class TestLabeledEntry:
             variable=var,
             show="*",
         )
+
         assert entry is not None
 
     def test_instantiation_with_empty_show_parameter(self, root: tk.Tk) -> None:
@@ -53,4 +58,5 @@ class TestLabeledEntry:
             variable=var,
             show="",
         )
+
         assert entry is not None

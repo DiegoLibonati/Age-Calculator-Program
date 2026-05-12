@@ -1,3 +1,5 @@
+import pytest
+
 from src.constants.messages import (
     MESSAGE_ERROR_APP,
     MESSAGE_NOT_FOUND_DIALOG_TYPE,
@@ -9,9 +11,11 @@ from src.constants.messages import (
 )
 
 
+@pytest.mark.unit
 class TestMessages:
     def test_message_success_age_format_with_name_and_age(self) -> None:
         result: str = MESSAGE_SUCCESS_AGE.format(name="John", age=30)
+
         assert result == "Hi John, your age is 30."
 
     def test_message_success_age_contains_name_placeholder(self) -> None:

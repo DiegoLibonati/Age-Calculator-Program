@@ -1,8 +1,11 @@
 from tkinter import CENTER
 
+import pytest
+
 from src.ui.styles import Styles
 
 
+@pytest.mark.unit
 class TestStyles:
     def test_primary_color(self) -> None:
         assert Styles.PRIMARY_COLOR == "#C98686"
@@ -33,4 +36,5 @@ class TestStyles:
 
     def test_instantiation(self) -> None:
         styles: Styles = Styles()
+
         assert styles is not None

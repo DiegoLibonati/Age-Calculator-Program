@@ -8,6 +8,7 @@ from src.ui.styles import Styles
 from src.utils.dialogs import ValidationDialogError
 
 
+@pytest.mark.unit
 class TestInterfaceApp:
     @pytest.fixture(scope="function")
     def interface_app(self, root: tk.Tk) -> InterfaceApp:
@@ -18,6 +19,7 @@ class TestInterfaceApp:
 
     def test_instantiation_with_custom_styles(self, root: tk.Tk) -> None:
         app: InterfaceApp = InterfaceApp(root=root, config=DefaultConfig(), styles=Styles())
+
         assert app is not None
 
     def test_get_current_age_raises_on_empty_name(self, interface_app: InterfaceApp) -> None:
@@ -25,6 +27,7 @@ class TestInterfaceApp:
         interface_app._main_view.year.set("1990")
         interface_app._main_view.month.set("1")
         interface_app._main_view.day.set("1")
+
         with pytest.raises(ValidationDialogError):
             interface_app._get_current_age()
 
@@ -33,6 +36,7 @@ class TestInterfaceApp:
         interface_app._main_view.year.set("")
         interface_app._main_view.month.set("")
         interface_app._main_view.day.set("")
+
         with pytest.raises(ValidationDialogError):
             interface_app._get_current_age()
 
@@ -41,6 +45,7 @@ class TestInterfaceApp:
         interface_app._main_view.year.set("9999")
         interface_app._main_view.month.set("1")
         interface_app._main_view.day.set("1")
+
         with pytest.raises(ValidationDialogError):
             interface_app._get_current_age()
 
@@ -49,6 +54,7 @@ class TestInterfaceApp:
         interface_app._main_view.year.set("abcd")
         interface_app._main_view.month.set("1")
         interface_app._main_view.day.set("1")
+
         with pytest.raises(ValidationDialogError):
             interface_app._get_current_age()
 
@@ -57,6 +63,7 @@ class TestInterfaceApp:
         interface_app._main_view.year.set("2000")
         interface_app._main_view.month.set("2")
         interface_app._main_view.day.set("30")
+
         with pytest.raises(ValidationDialogError):
             interface_app._get_current_age()
 
@@ -65,7 +72,9 @@ class TestInterfaceApp:
         interface_app._main_view.year.set("1990")
         interface_app._main_view.month.set("1")
         interface_app._main_view.day.set("1")
+
         interface_app._get_current_age()
+
         result: str = interface_app._main_view._result_text.get()
         assert "Alice" in result
         assert "age is" in result
@@ -75,6 +84,8 @@ class TestInterfaceApp:
         interface_app._main_view.year.set("1985")
         interface_app._main_view.month.set("3")
         interface_app._main_view.day.set("20")
+
         interface_app._get_current_age()
+
         result: str = interface_app._main_view._result_text.get()
         assert "Bob" in result
