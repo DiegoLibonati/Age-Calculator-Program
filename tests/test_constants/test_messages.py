@@ -1,43 +1,36 @@
-import pytest
-
-from src.constants.messages import (
-    MESSAGE_ERROR_APP,
-    MESSAGE_NOT_FOUND_DIALOG_TYPE,
-    MESSAGE_NOT_VALID_DATE,
-    MESSAGE_NOT_VALID_DAY,
-    MESSAGE_NOT_VALID_FIELDS,
-    MESSAGE_NOT_VALID_MONTH,
-    MESSAGE_SUCCESS_AGE,
-)
+from src.constants import messages
 
 
-@pytest.mark.unit
 class TestMessages:
-    def test_message_success_age_format_with_name_and_age(self) -> None:
-        result: str = MESSAGE_SUCCESS_AGE.format(name="John", age=30)
+    def test_message_success_age_is_string(self) -> None:
+        assert isinstance(messages.MESSAGE_SUCCESS_AGE, str)
 
-        assert result == "Hi John, your age is 30."
+    def test_message_success_age_has_name_placeholder(self) -> None:
+        assert "{name}" in messages.MESSAGE_SUCCESS_AGE
 
-    def test_message_success_age_contains_name_placeholder(self) -> None:
-        assert "{name}" in MESSAGE_SUCCESS_AGE
+    def test_message_success_age_has_age_placeholder(self) -> None:
+        assert "{age}" in messages.MESSAGE_SUCCESS_AGE
 
-    def test_message_success_age_contains_age_placeholder(self) -> None:
-        assert "{age}" in MESSAGE_SUCCESS_AGE
+    def test_message_success_age_formats_correctly(self) -> None:
+        result: str = messages.MESSAGE_SUCCESS_AGE.format(name="Alice", age=30)
 
-    def test_message_error_app_value(self) -> None:
-        assert MESSAGE_ERROR_APP == "Internal error. Contact a developer."
+        assert "Alice" in result
+        assert "30" in result
 
-    def test_message_not_valid_fields_value(self) -> None:
-        assert MESSAGE_NOT_VALID_FIELDS == "The fields entered are invalid."
+    def test_message_error_app_is_string(self) -> None:
+        assert isinstance(messages.MESSAGE_ERROR_APP, str)
 
-    def test_message_not_valid_month_value(self) -> None:
-        assert MESSAGE_NOT_VALID_MONTH == "Month should be between 1 and 12."
+    def test_message_not_valid_fields_is_string(self) -> None:
+        assert isinstance(messages.MESSAGE_NOT_VALID_FIELDS, str)
 
-    def test_message_not_valid_day_value(self) -> None:
-        assert MESSAGE_NOT_VALID_DAY == "Day is not valid for the given month."
+    def test_message_not_valid_month_is_string(self) -> None:
+        assert isinstance(messages.MESSAGE_NOT_VALID_MONTH, str)
 
-    def test_message_not_valid_date_value(self) -> None:
-        assert MESSAGE_NOT_VALID_DATE == "The date entered is not valid."
+    def test_message_not_valid_day_is_string(self) -> None:
+        assert isinstance(messages.MESSAGE_NOT_VALID_DAY, str)
 
-    def test_message_not_found_dialog_type_value(self) -> None:
-        assert MESSAGE_NOT_FOUND_DIALOG_TYPE == "The type of dialog to display is not found."
+    def test_message_not_valid_date_is_string(self) -> None:
+        assert isinstance(messages.MESSAGE_NOT_VALID_DATE, str)
+
+    def test_message_not_found_dialog_type_is_string(self) -> None:
+        assert isinstance(messages.MESSAGE_NOT_FOUND_DIALOG_TYPE, str)

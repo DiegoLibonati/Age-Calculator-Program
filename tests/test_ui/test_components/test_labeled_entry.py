@@ -1,62 +1,62 @@
 import tkinter as tk
 
-import pytest
-
 from src.ui.components.labeled_entry import LabeledEntry
 from src.ui.styles import Styles
 
 
-@pytest.mark.unit
 class TestLabeledEntry:
-    @pytest.fixture(scope="function")
-    def variable(self, root: tk.Tk) -> tk.StringVar:
-        return tk.StringVar(master=root)
+    def test_is_instance_of_frame(self, root: tk.Tk) -> None:
+        variable: tk.StringVar = tk.StringVar(root)
+        styles: Styles = Styles()
 
-    @pytest.fixture(scope="function")
-    def labeled_entry(self, root: tk.Tk, variable: tk.StringVar) -> LabeledEntry:
-        return LabeledEntry(parent=root, label_text="Test:", styles=Styles(), variable=variable)
+        widget: LabeledEntry = LabeledEntry(
+            parent=root,
+            label_text="Name:",
+            styles=styles,
+            variable=variable,
+        )
 
-    def test_instantiation(self, labeled_entry: LabeledEntry) -> None:
-        assert labeled_entry is not None
+        assert isinstance(widget, tk.Frame)
 
-    def test_is_frame_subclass(self, labeled_entry: LabeledEntry) -> None:
-        assert isinstance(labeled_entry, tk.Frame)
+    def test_initializes_without_error(self, root: tk.Tk) -> None:
+        variable: tk.StringVar = tk.StringVar(root)
+        styles: Styles = Styles()
 
-    def test_variable_initial_value_is_empty(self, variable: tk.StringVar) -> None:
-        assert variable.get() == ""
+        widget: LabeledEntry = LabeledEntry(
+            parent=root,
+            label_text="Email:",
+            styles=styles,
+            variable=variable,
+        )
 
-    def test_variable_set_updates_value(self, variable: tk.StringVar) -> None:
-        variable.set("hello")
+        assert widget is not None
 
-        assert variable.get() == "hello"
+    def test_variable_binding_reflects_changes(self, root: tk.Tk) -> None:
+        variable: tk.StringVar = tk.StringVar(root)
+        styles: Styles = Styles()
+        LabeledEntry(parent=root, label_text="Field:", styles=styles, variable=variable)
 
-    def test_variable_set_overwrites_previous_value(self, variable: tk.StringVar) -> None:
-        variable.set("first")
+        variable.set("test value")
 
-        variable.set("second")
+        assert variable.get() == "test value"
 
-        assert variable.get() == "second"
+    def test_show_parameter_is_accepted(self, root: tk.Tk) -> None:
+        variable: tk.StringVar = tk.StringVar(root)
+        styles: Styles = Styles()
 
-    def test_instantiation_with_show_parameter(self, root: tk.Tk) -> None:
-        var: tk.StringVar = tk.StringVar(master=root)
-        entry: LabeledEntry = LabeledEntry(
+        widget: LabeledEntry = LabeledEntry(
             parent=root,
             label_text="Password:",
-            styles=Styles(),
-            variable=var,
+            styles=styles,
+            variable=variable,
             show="*",
         )
 
-        assert entry is not None
+        assert widget is not None
 
-    def test_instantiation_with_empty_show_parameter(self, root: tk.Tk) -> None:
-        var: tk.StringVar = tk.StringVar(master=root)
-        entry: LabeledEntry = LabeledEntry(
-            parent=root,
-            label_text="Name:",
-            styles=Styles(),
-            variable=var,
-            show="",
-        )
+    def test_initializes_with_empty_variable_by_default(self, root: tk.Tk) -> None:
+        variable: tk.StringVar = tk.StringVar(root)
+        styles: Styles = Styles()
+        LabeledEntry(parent=root, label_text="Field:", styles=styles, variable=variable)
 
-        assert entry is not None
+        assert variable.get() == ""

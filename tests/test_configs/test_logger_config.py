@@ -1,42 +1,40 @@
 import logging
 
-import pytest
-
 from src.configs.logger_config import setup_logger
 
 
-@pytest.mark.unit
 class TestSetupLogger:
-    def test_returns_logger(self) -> None:
-        logger: logging.Logger = setup_logger("test-logger-returns")
+    def test_returns_logger_instance(self) -> None:
+        logger: logging.Logger = setup_logger("test-instance")
 
         assert isinstance(logger, logging.Logger)
 
-    def test_logger_has_handlers(self) -> None:
-        logger: logging.Logger = setup_logger("test-logger-handlers")
-
-        assert len(logger.handlers) > 0
-
-    def test_logger_name_matches(self) -> None:
-        logger: logging.Logger = setup_logger("test-logger-name")
-
-        assert logger.name == "test-logger-name"
-
-    def test_logger_default_name(self) -> None:
+    def test_returns_logger_with_default_name(self) -> None:
         logger: logging.Logger = setup_logger()
 
         assert logger.name == "tkinter-app"
 
-    def test_logger_level_is_debug(self) -> None:
-        logger: logging.Logger = setup_logger("test-logger-level")
+    def test_returns_logger_with_custom_name(self) -> None:
+        logger: logging.Logger = setup_logger("custom-name")
+
+        assert logger.name == "custom-name"
+
+    def test_logger_has_debug_level(self) -> None:
+        logger: logging.Logger = setup_logger("test-level")
 
         assert logger.level == logging.DEBUG
 
-    def test_no_duplicate_handlers_on_repeated_call(self) -> None:
-        logger: logging.Logger = setup_logger("test-logger-no-dup")
+    def test_logger_has_stream_handler(self) -> None:
+        logger: logging.Logger = setup_logger("test-handler")
+        handler_types: list[type] = [type(h) for h in logger.handlers]
+
+        assert logging.StreamHandler in handler_types
+
+    def test_calling_twice_does_not_add_duplicate_handlers(self) -> None:
+        logger: logging.Logger = setup_logger("test-no-duplicate")
         count_first: int = len(logger.handlers)
 
-        setup_logger("test-logger-no-dup")
-
+        setup_logger("test-no-duplicate")
         count_second: int = len(logger.handlers)
+
         assert count_first == count_second

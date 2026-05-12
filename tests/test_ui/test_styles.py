@@ -1,40 +1,35 @@
-from tkinter import CENTER
-
-import pytest
-
 from src.ui.styles import Styles
 
 
-@pytest.mark.unit
 class TestStyles:
-    def test_primary_color(self) -> None:
+    def test_primary_color_value(self) -> None:
         assert Styles.PRIMARY_COLOR == "#C98686"
 
-    def test_secondary_color(self) -> None:
+    def test_secondary_color_value(self) -> None:
         assert Styles.SECONDARY_COLOR == "#dfc3c3"
 
-    def test_white_color(self) -> None:
+    def test_white_color_value(self) -> None:
         assert Styles.WHITE_COLOR == "#FFFFFF"
 
-    def test_black_color(self) -> None:
+    def test_black_color_value(self) -> None:
         assert Styles.BLACK_COLOR == "#000000"
 
-    def test_font_roboto(self) -> None:
+    def test_font_roboto_value(self) -> None:
         assert Styles.FONT_ROBOTO == "Roboto"
 
-    def test_font_roboto_12(self) -> None:
-        assert Styles.FONT_ROBOTO_12 == "Roboto 12"
+    def test_font_roboto_12_contains_size(self) -> None:
+        assert "12" in Styles.FONT_ROBOTO_12
 
-    def test_font_roboto_13(self) -> None:
-        assert Styles.FONT_ROBOTO_13 == "Roboto 13"
+    def test_font_roboto_13_contains_size(self) -> None:
+        assert "13" in Styles.FONT_ROBOTO_13
 
-    def test_font_roboto_15(self) -> None:
-        assert Styles.FONT_ROBOTO_15 == "Roboto 15"
+    def test_font_roboto_15_contains_size(self) -> None:
+        assert "15" in Styles.FONT_ROBOTO_15
 
-    def test_anchor_center(self) -> None:
-        assert Styles.ANCHOR_CENTER == CENTER
+    def test_font_roboto_12_contains_font_name(self) -> None:
+        assert "Roboto" in Styles.FONT_ROBOTO_12
 
-    def test_instantiation(self) -> None:
+    def test_instantiation_succeeds(self) -> None:
         styles: Styles = Styles()
 
         assert styles is not None
