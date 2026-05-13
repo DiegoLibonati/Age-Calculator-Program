@@ -24,7 +24,7 @@ All dependencies are declared in `pyproject.toml`. The `requirements*.txt` files
 #### Runtime (`pip install -e .`)
 
 ```
-python-dotenv>=1.0
+python-dotenv==1.0.1
 ```
 
 #### Dev (`pip install -e .[dev]`)

@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "Age Snap is a desktop application built with Python and Tkinter that calculates a person's exact age in years based on their date of birth."
 requires-python = ">=3.11"
 dependencies = [
-    "python-dotenv>=1.0",
+    "python-dotenv==1.0.1",
 ]
 
 [project.optional-dependencies]
