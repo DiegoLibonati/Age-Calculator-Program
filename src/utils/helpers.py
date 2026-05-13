@@ -27,7 +27,9 @@ def validate_inputs(name: str, year: str, month: str, day: str) -> str | None:
 
 def calculate_age(year: int, month: int, day: int) -> int:
     current_date = datetime.now()
-    return current_date.year - year if month < current_date.month or (month == current_date.month and day <= current_date.day) else current_date.year - year - 1
+    same_month = month == current_date.month
+    birthday_passed = month < current_date.month or (same_month and day <= current_date.day)
+    return current_date.year - year if birthday_passed else current_date.year - year - 1
 
 
 def is_valid_date(year: int, month: int, day: int) -> bool:
