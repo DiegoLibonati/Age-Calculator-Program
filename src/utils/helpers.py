@@ -12,14 +12,14 @@ def validate_inputs(name: str, year: str, month: str, day: str) -> str | None:
         return MESSAGE_NOT_VALID_FIELDS
 
     try:
-        year, month, day = int(year), int(month), int(day)
+        year_int, month_int, day_int = int(year), int(month), int(day)
     except ValueError:
         return MESSAGE_NOT_VALID_FIELDS
 
-    if year > datetime.now().year or not is_valid_date(year, month, day):
+    if year_int > datetime.now().year or not is_valid_date(year_int, month_int, day_int):
         return MESSAGE_NOT_VALID_DATE
 
-    if not (1 <= month <= 12):
+    if not (1 <= month_int <= 12):
         return MESSAGE_NOT_VALID_MONTH
 
     return None
