@@ -34,6 +34,7 @@ pre-commit==4.3.0
 pip-audit==2.7.3
 ruff==0.11.12
 mypy==1.13.0
+python-semantic-release==9.21.0
 ```
 
 #### Test (`[project.optional-dependencies]` test)
@@ -173,9 +174,9 @@ The repository ships with a **GitHub Actions** pipeline defined in [`.github/wor
 
 ### Release jobs (only on push to `main`)
 
-4. **`prepare-release`** — inspects the commits since the latest tag, decides the next SemVer version using [Conventional Commits](#conventional-commits-required-for-releases), generates the changelog section, updates `CHANGELOG.md` and `pyproject.toml`, then commits, tags and pushes back to `main`. Skipped automatically when the head commit is the bot's own `chore(release): vX.Y.Z` commit, to avoid loops.
+4. **`prepare-release`** — runs [`python-semantic-release`](https://python-semantic-release.readthedocs.io/), which inspects the commits since the latest tag, decides the next SemVer version using [Conventional Commits](#conventional-commits-required-for-releases), updates `CHANGELOG.md` and `pyproject.toml`, then commits, tags and pushes back to `main`. Skipped automatically when the head commit is the bot's own `chore(release): vX.Y.Z [skip release]` commit, to avoid loops.
 5. **`build-windows-exe`** — checks out the freshly created tag on a `windows-latest` runner, runs `pyinstaller app.spec`, and renames the artifact to `age-snap-vX.Y.Z-windows.exe`.
-6. **`publish-release`** — creates the GitHub Release for the new tag, attaches the Windows `.exe`, and uses the generated changelog section as the release notes.
+6. **`publish-release`** — uses `python-semantic-release/publish-action` to create the GitHub Release for the new tag, attaches the Windows `.exe`, and uses the generated changelog section as the release notes.
 
 ### Conventional Commits (required for releases)
 
@@ -192,7 +193,7 @@ When a push contains multiple commits, the highest applicable bump wins (a singl
 
 ### Skipping a release
 
-If you need to push a change to `main` without producing a release (e.g. tweaking job names in the workflow, fixing a typo in the README), append `[skip release]` to the commit message. The validation jobs (lint, test, build) still run; only `prepare-release`, `build-windows-exe` and `publish-release` are skipped.
+If you need to push a change to `main` without producing a release (e.g. tweaking job names in the workflow, fixing a typo in the README), append `[skip release]` to the commit message. The `lint-and-audit` and `test` jobs still run; `build`, `prepare-release`, `build-windows-exe` and `publish-release` are skipped.
 
 ```bash
 git commit -m "ci: rename build job for clarity [skip release]"
